@@ -17,11 +17,7 @@ db.create_all()
 
 
 # Session
-engine = create_engine('sqlite:///sqlalchemy_example.db')
-Base.metadata.bind = engine
-DBSession = sessionmaker()
-DBSession.bind = engine
-session = DBSession()
+
 
 # Routes
 
@@ -31,14 +27,20 @@ def index():
     '''
     Home page
     '''
-    return "Hello World"
+    return "Supported endpoints: [POST]/item, [GET]/items, "
 
 # Insert
-@app.route("/insert/item/todo", methods = ['POST'])
+@app.route("/insert/item", methods = ['POST'])
 def todo():
     '''
-    insert item todo
+    insert todo item
     '''
+    engine = create_engine('sqlite:///sqlalchemy_example.db')
+    Base.metadata.bind = engine
+    DBSession = sessionmaker()
+    DBSession.bind = engine
+    session = DBSession()   
+
     recievedItem = request.form.get("item")
     new_item = Items(item=recievedItem)
     session.add(new_item)
@@ -47,17 +49,44 @@ def todo():
     return "thank you"
 
 # Get Items
-@app.route("/get/items", methods = ['GET'])
+@app.route("/items", methods = ['GET'])
 def items():
     '''
     items
     '''
-    recievedItems = session.query(Items).all()
+    engine = create_engine('sqlite:///sqlalchemy_example.db')
+    Base.metadata.bind = engine
+    DBSession = sessionmaker()
+    DBSession.bind = engine
+    session = DBSession()    
+    
+    currentItems = session.query(Items).all()
     temp = []
-    for itm in recievedItems:
-        print(itm.item)
+    for itm in currentItems:
         temp.append(itm.item)
     return jsonify(temp)
+
+# Delete Items
+@app.route("/delete/item", methods = ['POST'])
+def deleteitems():
+    '''
+    deleteitems
+    '''
+    engine = create_engine('sqlite:///sqlalchemy_example.db')
+    Base.metadata.bind = engine
+    DBSession = sessionmaker()
+    DBSession.bind = engine
+    session = DBSession()    
+
+    queryItem = request.form.get("item")
+    currentItems = session.query(Items).all()
+    for i in currentItems:
+        if i.item == queryItem:
+            session.delete(i)
+            session.commit()
+            return "deleted item"
+
+    return "could not find item"
 
 if __name__ == "__main__":
     app.run(port=3000)
