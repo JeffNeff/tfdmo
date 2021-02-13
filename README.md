@@ -17,7 +17,11 @@ npm start
 ```
 
 ## Kubernetes Deployment
+(not finished implementing)
 
+```
+ko apply -f config/
+```
 
 ## Live Project Preview
-
+(not finished implementing)
