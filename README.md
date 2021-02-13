@@ -1,17 +1,23 @@
-## Use
+# Jeff Naef Test Project
 
-* Flask
-* Flask-SQLAlchemy
+## Local Setup and Testing
 
-## Install
+```cmd
+pip (or pip3) install -r requirements.txt 
+python (or python3) create.py (initiate a database)
+python (or python3) app.py 
+```
 
-```
-In Terminal:
-pip (or pip3) install -r requirements.txt (this depends on how your system is set up)
-```
-## Run
+In the `static` folder, populate the `./static/src/auth_config.json` with the proper AUTH0 creds and info. 
 
+```cmd
+cd static
+npm install
+npm start
 ```
-In Terminal:
-python (or python3) app.py (this depends on how your system is set up)
-```
+
+## Kubernetes Deployment
+
+
+## Live Project Preview
+

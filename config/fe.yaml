@@ -1,0 +1,9 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: fe-client
+spec:
+  template:
+    spec:
+      containers:
+        - image: ko://github.com/triggermesh/flask_project_default/static

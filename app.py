@@ -15,10 +15,6 @@ app.config['DEBUG'] = True
 db.init_app(app)
 db.create_all()
 
-
-# Session
-
-
 # Routes
 
 # Index
@@ -42,11 +38,12 @@ def todo():
     session = DBSession()   
 
     recievedItem = request.form.get("item")
+    # recievedDate = request.form.get("dueDate")
     new_item = Items(item=recievedItem)
+    # new_date = Items(due_date=)
     session.add(new_item)
     session.commit()
-
-    return "thank you"
+    return "200"
 
 # Get Items
 @app.route("/items", methods = ['GET'])
@@ -66,6 +63,8 @@ def items():
         temp.append(itm.item)
     return jsonify(temp)
 
+
+
 # Delete Items
 @app.route("/delete/item", methods = ['POST'])
 def deleteitems():
@@ -84,9 +83,9 @@ def deleteitems():
         if i.item == queryItem:
             session.delete(i)
             session.commit()
-            return "deleted item"
+            return "200"
 
-    return "could not find item"
+    return "500"
 
 if __name__ == "__main__":
     app.run(port=3000)
