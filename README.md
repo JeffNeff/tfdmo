@@ -17,7 +17,7 @@ npm start
 ```
 
 ## Kubernetes Deployment
-not finished implementing
+not finished implementingasdf
 
 ```
 ko apply -f config/
