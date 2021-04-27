@@ -23,5 +23,5 @@ not finished implementing
 ko apply -f config/
 ```
 
-## Live Project Preview
+## Live Project Previewdafd
 not finished implementing
